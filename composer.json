@@ -1,0 +1,25 @@
+{
+  "name": "emirustaoglu/artisan",
+  "type": "library",
+  "homepage": "https://github.com/emirustaoglu/artisan",
+  "description": "Artisan Komut Sistemi",
+  "version": "0.0.1",
+  "authors": [
+    {
+      "name": "Yusuf Emir USTAOĞLU"
+    }
+  ],
+  "require": {
+    "php": ">=7.4.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "emirustaoglu\\": "src/"
+    }
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "emirustaoglu\\install\\FirstInstall::createArtisan"
+    ]
+  }
+}
