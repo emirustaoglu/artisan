@@ -17,10 +17,5 @@
     "psr-4": {
       "emirustaoglu\\": "src/"
     }
-  },
-  "scripts": {
-    "post-package-install": [
-      "emirustaoglu\\install\\FirstInstall::createArtisan"
-    ]
   }
 }

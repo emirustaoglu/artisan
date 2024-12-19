@@ -7,7 +7,7 @@ class FirstInstall
     public static function createArtisan()
     {
         // Ana proje dizinine gider
-        $projectRoot = dirname(__DIR__, 3); // Vendor klasöründen çık
+        $projectRoot = dirname(__DIR__, 5); // Vendor klasöründen çık
         $proxyPath = $projectRoot . '/artisan/artisan'; // Ana dizindeki artisan proxy dosyası
 
         // Eğer artisan proxy dosyası yoksa oluştur

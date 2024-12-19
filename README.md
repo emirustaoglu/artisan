@@ -49,6 +49,13 @@ Projeyi Composer ile kurabilirsiniz:
 composer require emirustaoglu/artisan
 ```
 
+Composer kurulumu tamamlandıktan sonra terminal üzerinden şu kodu çalıştırın
+```bash
+php -r "require_once 'vendor/autoload.php'; emirustaoglu\install\FirstInstall::createArtisan();" 
+```
+
+Böylelikle projenizin ana dizinine `artisan` dosyası oluşturulacaktır.
+
 ## Gereksinimler
 
 - PHP Sürümü:
