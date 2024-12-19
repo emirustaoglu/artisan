@@ -57,7 +57,7 @@ class artisan
 
         switch ($command[0]) {
             case "-list":
-                echo " -list => Tanımlı komutları döner.\n -version => PHP Sürüm bilginizi döner.\n migrate => Veritabanı eşitlemesini yapar.\n seeds => Veritabanı sabit verilerinizi (seeds) çalıştırır.\n serve => Uygulamanızı başlatır. \n make:view => Yeni bir view dosyası oluşturur. => make:view viewAdi \n make:migration => Yeni Bir migrate dosyası oluşturur. => make:view viewAdi \n make:seed => Yeni bir seed dosyası oluşturur. make:seed seedAdi \n make:controller => Yeni bir controller dosyası oluşturur. => make:controller controllerAdi =\n make:middlewares => Yeni bir middlewares dosyası oluşturur. => make:middlewares middlewaresAdi \n make:model => Yeni bir model dosyası oluşturur. => make:model modelAdi \n make:enum => Yeni bir enum dosyası oluşturur. => make:enum enumAdi";
+                echo "-list => Tanımlı komutları döner.\n -version => PHP Sürüm bilginizi döner.\n migrate => Veritabanı eşitlemesini yapar.\n seeds => Veritabanı sabit verilerinizi (seeds) çalıştırır.\n serve => Uygulamanızı başlatır. \n make:view => Yeni bir view dosyası oluşturur. => make:view viewAdi \n make:migration => Yeni Bir migrate dosyası oluşturur. => make:view viewAdi \n make:seed => Yeni bir seed dosyası oluşturur. make:seed seedAdi \n make:controller => Yeni bir controller dosyası oluşturur. => make:controller controllerAdi =\n make:middlewares => Yeni bir middlewares dosyası oluşturur. => make:middlewares middlewaresAdi \n make:model => Yeni bir model dosyası oluşturur. => make:model modelAdi \n make:enum => Yeni bir enum dosyası oluşturur. => make:enum enumAdi";
                 break;
             case "-version":
                 echo $this->phpSurum();
@@ -71,11 +71,11 @@ class artisan
                     'username' => $this->dbUser,
                     'password' => $this->dbPassword
                 ]);
-//                if ($option === "down") {
-//                    $manager->migrateDown();
-//                } else {
+                if ($option === "down") {
+                    $manager->migrateDown();
+                } else {
                     $manager->migrateUp();
-                //}
+                }
                 break;
             case "seeds":
                 //Veritabanı sabit verileri çalıştırır.
@@ -91,6 +91,12 @@ class artisan
                 } else {
                     $manager->seedsUp();
                 }
+                break;
+            case "serve":
+                $host = $option ?? '127.0.0.1:1108'; // Eğer bir IP verilmemişse varsayılan değer
+                $command = "php -S $host -t public";
+                exec($command);
+                echo "[" . date("Y-m-d H:i:s") . "] PHP " . $this->phpSurum(2) . " Development Server (" . $host . ") started";
                 break;
             case "make":
                 switch ($command[1]) {
@@ -140,8 +146,11 @@ class artisan
 
         // Sadece PHP versiyon numarasını alalım
         if (preg_match('/^PHP (\S+)/', $versionLine, $matches)) {
-            if ($num == 1)
+            if ($num == 1) {
                 return str_replace(".", "", $matches[1]);
+            } else if ($num == 2) {
+                return $matches[1];
+            }
             return "PHP Sürümünüz: " . $matches[1];
         } else {
             return "PHP Sürümü Öğrenilemedi";
