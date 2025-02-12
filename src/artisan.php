@@ -177,20 +177,22 @@ class artisan
             die("Bir View adı belirtmelisiniz. Örnek: php artisan make:view viewName\n");
         }
 
-        //$newViewPath = $this->viewPath . $folderName;
+        $newViewPath = $this->viewPath . $folderName; // Dizin yolunu alıyoruz
 
-        if (!file_exists($this->viewPath)) {
-            mkdir($this->viewPath, 0777, true);
+// Dizin yoksa oluşturuyoruz
+        if (!file_exists($newViewPath)) {
+            mkdir($newViewPath, 0777, true); // Dizin ve alt dizinleri oluştur
         }
 
-        $newViewFile = $this->viewPath . $fileName . ".blade.php";//echo $newViewFile;exit;
-        $viewData = "{{-- Dosya Adı: %DosyaAdi% --}}
-{{-- Eklenme Tarihi: %EklenmeTarihi% --}}";
+        $newViewFile = $newViewPath . $fileName . ".blade.php"; // Dosya yolunu tamamlıyoruz
+        $viewData = "{{-- Dosya Adı: %DosyaAdi% --}}\n{{-- Eklenme Tarihi: %EklenmeTarihi% --}}";
+
         if (file_put_contents($newViewFile, str_replace('%DosyaAdi%', $fileName, str_replace('%EklenmeTarihi%', date('Y-m-d H:i:s'), $viewData))) !== false) {
             echo "Yeni view dosyası oluşturuldu: $newViewFile\n";
         } else {
             echo "Yeni view dosyası oluşturulamadı!\n";
         }
+
     }
 
     private function makeMigrations($migrationName)
